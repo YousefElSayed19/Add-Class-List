@@ -8,34 +8,34 @@ let span;
 let spanText;
 
 let NoClassesToShow = function () {
-    if (div.children.length === 0){
-    let span = document.createElement("span");
-    spanText = document.createTextNode("No Classes To Show");
-    span.appendChild(spanText);
-    span.style.cssText="background:#ff5722"
-    div.appendChild(span);
+    if (div.children.length === 0) {
+        let span = document.createElement("span");
+        spanText = document.createTextNode("No Classes To Show");
+        span.appendChild(spanText);
+        span.style.cssText = "background:#ff5722"
+        div.appendChild(span);
     }
 }
 
 buttonAdd.onclick = function () {
     let text = classesToAdd.value.trim()
-    if (text.length > 0)
-    {
-        if (text.split(" ").length === 1){
-        span = document.createElement("span");
-        spanText = document.createTextNode(`${text.toLowerCase()}`);
-        span.appendChild(spanText);
-        div.appendChild(span);
-            } else {
-        let i = 0;
-        let size = text.split(" ").length;
-        while (i < size) {
-            let arr = text.split(" ").sort();
+    if (text.length > 0) {
+        if (text.split(" ").length === 1) {
             span = document.createElement("span");
-            spanText = document.createTextNode(`${arr[i].toLowerCase()}`);
+            spanText = document.createTextNode(`${text.toLowerCase()}`);
             span.appendChild(spanText);
             div.appendChild(span);
-            i++;
+        }
+        else {
+            let i = 0;
+            let size = text.split(" ").length;
+            while (i < size) {
+                let arr = text.split(" ").sort();
+                span = document.createElement("span");
+                spanText = document.createTextNode(`${arr[i].toLowerCase()}`);
+                span.appendChild(spanText);
+                div.appendChild(span);
+                i++;
             }
         }
         classesToAdd.value = '';
@@ -45,6 +45,7 @@ buttonAdd.onclick = function () {
 
 }
 buttonRemove.onclick = function () {
+    let checked = 1;
     let text = classesToRemove.value;
     let size = div.children.length;
     let i = 0
@@ -54,7 +55,7 @@ buttonRemove.onclick = function () {
                 div.children[i].remove();
                 size--;
             } else {
-                alert("This name is not in the class list !");
+                checked = 0;
             }
             i++;
         } while (i < size)
@@ -66,12 +67,15 @@ buttonRemove.onclick = function () {
                     div.children[j].remove();
                     size--;
                 } else {
-                    alert("This name is not in the class list !");
+                    checked = 0;
                 }
             }
         }
         classesToRemove.value = '';
         NoClassesToShow();
+    }
+    if (checked == 0) {
+        alert("This name is not in the class list !");
     }
 }
 
